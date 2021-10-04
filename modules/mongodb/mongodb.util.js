@@ -28,13 +28,14 @@
     }
 
     function prepareConnectionString(config) {
-        var connectionString = 'mongodb://';
+        var connectionString = 'mongodb+srv://';
+        //mongodb+srv://application:<password>@cluster0.iwza9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
         if (config.user) {
             connectionString += config.user + ':' + config.password + '@';
         }
 
-        connectionString += config.server + '/' + config.database;
+        connectionString += config.server + '/' + config.database ;
 
         return connectionString;
     }

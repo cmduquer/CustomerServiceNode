@@ -1,8 +1,8 @@
 {
     "mongodb": {
-      "server": "localhost:32768",
-      "database": "customer_db_dev",
-      "user": null,
-      "password": null
+      "server": "cluster0.iwza9.mongodb.net",
+      "database": "UDEA",
+      "user": "application",
+      "password": "application"
     }
   }
