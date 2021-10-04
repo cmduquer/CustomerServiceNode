@@ -8,6 +8,13 @@ var handleErrors = require('./modules/middleware/handleErrors');
 var { BadRequest } = require('./modules/util/errors');
 const swaggerJSDoc = require('swagger-jsdoc');  
 const swaggerUI = require('swagger-ui-express');  
+const admin = require("firebase-admin");
+
+const serviceAccount = require("./config/firebase/misiontic-93870-firebase-adminsdk-5dgjt-0bbd6d0062.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 var app = express();
 
@@ -34,6 +41,27 @@ app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
 
 MongoDBUtil.init();
 app.use(cors());
+
+function checkAuth(req, res, next) {
+  if (req.headers.authtoken) {
+    admin.auth().verifyIdToken(req.headers.authtoken)
+      .then(() => {
+        next()
+      }).catch((error) => {
+        res.status(403).send('Unauthorized')
+      });
+  } else {
+    res.status(403).send('Unauthorized')
+  }
+}
+
+app.use('*', checkAuth)
+
+app.get('/auth', (req, res) => {
+  res.json({
+    message: 'Hello World!'
+  })
+})
 app.use('/customers', CustomerController);
 
 app.get('/', function (req, res) {
