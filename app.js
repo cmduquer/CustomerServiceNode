@@ -43,8 +43,9 @@ MongoDBUtil.init();
 app.use(cors());
 
 function checkAuth(req, res, next) {
-  if (req.headers.authtoken) {
-    admin.auth().verifyIdToken(req.headers.authtoken)
+  if (req.headers?.authorization?.startsWith('Bearer ')) {
+    const idToken = req.headers.authorization.split('Bearer ')[1];
+    admin.auth().verifyIdToken(idToken)
       .then(() => {
         next()
       }).catch((error) => {
