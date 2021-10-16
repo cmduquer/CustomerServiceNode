@@ -13,21 +13,41 @@
      *     description: Create an Employee 
      *     parameters: 
      *     - in: formData
-     *       name: name
+     *       name: firstName
      *       type: string
-     *       description: A person's name.
+     *       description: A person's firstName.
      *     - in: formData
-     *       name: fav_number
-     *       type: number
-     *       description: A person's favorite number.
+     *       name: lastName
+     *       type: string
+     *       description: A person's lastName.
      *     - in: formData
-     *       name: fav_number2
-     *       type: number
-     *       description: A person's favorite number.
+     *       name: email
+     *       type: string
+     *       description: A person's email.
      *     - in: formData
-     *       name: fav_number3
+     *       name: phoneNumber
      *       type: number
-     *       description: A person's favorite number.
+     *       description: A person's phoneNumber.
+     *     - in: formData
+     *       name: address
+     *       type: String
+     *       description: A person's address.
+     *     - in: formData
+     *       name: city
+     *       type: String
+     *       description: A person's city.
+     *     - in: formData
+     *       name: state
+     *       type: String
+     *       description: A person's state.
+     *     - in: formData
+     *       name: zipCode
+     *       type: String
+     *       description: A person's zipCode.
+     *     - in: formData
+     *       name: country
+     *       type: String
+     *       description: A person's country.
      *     responses:  
      *       201: 
      *         description: Created  
@@ -53,7 +73,19 @@
         function (req, res) {
             res.status(200).json(req.response);
         });
-
+    /** 
+     * @swagger 
+     * /customers/{customerId}: 
+     *   get: 
+     *     description: get one Employee 
+     *     parameters:
+     *     - in: path
+     *       name: customerId
+     *     responses:  
+     *       200: 
+     *         description: Success  
+     *   
+     */
     router.get('/:customerId',
         CustomerMiddleware.getCustomerById,
         function (req, res) {
@@ -65,7 +97,19 @@
         function (req, res) {
             res.status(200).json(req.response);
         });
-    
+    /** 
+     * @swagger 
+     * /customers/{customerId}: 
+     *   delete: 
+     *     description: delete one Employee 
+     *     parameters:
+     *     - in: path
+     *       name: customerId
+     *     responses:  
+     *       200: 
+     *         description: Success  
+     *   
+     */
     router.delete('/:customerId',
         CustomerMiddleware.removeCustomer,
         function (req, res) {
