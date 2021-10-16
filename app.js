@@ -32,7 +32,18 @@ const swaggerOptions = {
       info: {  
           title:'Customers API',  
           version:'1.0.0'  
-      }  
+      },
+      basePath: '/',
+      securityDefinitions: {
+        bearerAuth: {
+          type: 'apiKey',
+          name: 'Authorization',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          in: 'header'
+        } 
+      },
+      "security": [{ "bearerAuth": [] }]  
   },  
   apis:['./modules/customer/customer.controller.js'],  
 }  
@@ -52,7 +63,7 @@ function checkAuth(req, res, next) {
         res.status(403).send('Unauthorized')
       });
   } else {
-    res.status(403).send('Unauthorized')
+    res.status(401).send('Unauthorized')
   }
 }
 
